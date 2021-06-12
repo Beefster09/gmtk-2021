@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PairController : MonoBehaviour
 {
+    public float InputDeadzone = 0.25f;
     public float InputRepeatDelay = 0.5f;
     public float InputRepeat = 0.1f;
 
@@ -18,25 +19,28 @@ public class PairController : MonoBehaviour
     Transform[] SelectorPair = new Transform[]{null, null};
     Vector3[] SelectorPairVel = new Vector3[]{Vector3.zero, Vector3.zero};
 
+    Level map;
+    bool Active = true;
 
     // Start is called before the first frame update
     void Start()
     {
         SelectorPair[0] = transform.GetChild(0);
         SelectorPair[1] = transform.GetChild(1);
+        map = FindObjectOfType<Level>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (CharacterPair[0] != null && CharacterPair[1] != null) {
+        if (Active && CharacterPair[0] != null && CharacterPair[1] != null) {
             Vector2 move = new Vector2(
                 Input.GetAxisRaw("Horizontal"),
                 Input.GetAxisRaw("Vertical")
             );
 
             // Process input
-            if (move.magnitude > 0.25f) {
+            if (move.magnitude > InputDeadzone) {
                 if (isHeld && Vector2.Dot(HoldReferenceDir, move.normalized) < 0.5) {
                     isRepeating = false;
                     HoldReferenceDir = move.normalized;
@@ -142,6 +146,18 @@ public class PairController : MonoBehaviour
     void MovePair(Vector2 move) {
         foreach (var character in CharacterPair) {
             character.MappedMove(move);
+        }
+        switch (map.CheckEndConditions()) {
+            case Level.EndCondition.Win:
+                Debug.Log("WINNER!");
+                // map.WinLevel()
+                Active = false;
+                break;
+            case Level.EndCondition.Lose:
+                Debug.Log("LOSER!");
+                // map.LoseLevel()
+                Active = false;
+                break;
         }
     }
 }

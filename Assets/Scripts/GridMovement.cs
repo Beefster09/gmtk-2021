@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,8 @@ public class GridMovement : MonoBehaviour
     Vector2 StartPos;
     Vector2 TargetPos;
 
-    Vector2Int GridPosition;
+    [NonSerialized]
+    public Vector2Int GridPosition;
     Vector2 GridOffset = new Vector2(0.5f, 0.5f);
 
     // input map
