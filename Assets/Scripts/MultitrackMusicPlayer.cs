@@ -15,6 +15,8 @@ public class MultitrackMusicPlayer : MonoBehaviour
     float[] volumeVelocity;
 
     public float volumeChangeTime = 0.25f;
+    [Range(0f, 1f)]
+    public float masterVolume = 0.7f;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,13 +30,13 @@ public class MultitrackMusicPlayer : MonoBehaviour
 
             var intro = gameObject.AddComponent<AudioSource>();
             intro.clip = tracks[i].intro;
-            intro.volume = targetVolume[i];
+            intro.volume = targetVolume[i] * masterVolume;
             intro.Play();
             introPlayers[i] = intro;
 
             var loop = gameObject.AddComponent<AudioSource>();
             loop.clip = tracks[i].loop;
-            loop.volume = targetVolume[i];
+            loop.volume = targetVolume[i] * masterVolume;
             loop.loop = true;
             loop.PlayScheduled(dspNow + tracks[0].intro.length);
             loopPlayers[i] = loop;
@@ -47,7 +49,7 @@ public class MultitrackMusicPlayer : MonoBehaviour
         for (int i = 0; i < tracks.Length; i++) {
             introPlayers[i].volume = loopPlayers[i].volume = Mathf.SmoothDamp(
                 loopPlayers[i].volume,
-                targetVolume[i],
+                targetVolume[i] * masterVolume,
                 ref volumeVelocity[i],
                 volumeChangeTime
             );

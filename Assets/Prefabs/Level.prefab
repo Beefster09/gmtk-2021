@@ -199,3 +199,4 @@ MonoBehaviour:
     loop: {fileID: 8300000, guid: 3fb4b329f7d531446a544012d96736a9, type: 3}
     startEnabled: 0
   volumeChangeTime: 0.25
+  masterVolume: 0.5

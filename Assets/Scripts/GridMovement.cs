@@ -10,8 +10,7 @@ public class GridMovement : MonoBehaviour
     Vector2 StartPos;
     Vector2 TargetPos;
 
-    [NonSerialized]
-    public Vector2Int GridPosition;
+    public Vector2Int GridPosition {get; private set;}
     Vector2 GridOffset = new Vector2(0.5f, 0.5f);
 
     // input map
@@ -117,6 +116,14 @@ public class GridMovement : MonoBehaviour
                 }
                 Move(Vector2Int.zero);
                 return;
+            default:
+                if (Math.Abs(offset.x) == 2 || Math.Abs(offset.y) == 2) {
+                    if (map.CellTypeAt(GridPosition + offset / 2) == CellType.Wall) {  // Wall is in the way for long jump
+                        Move(Vector2Int.zero);
+                        return;
+                    }
+                }
+                break;
         }
         var destType = map.CellTypeAt(dest);
         if (destType != CellType.Wall && !IsOccupied(dest)) {

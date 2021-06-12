@@ -46,36 +46,35 @@ public class Level : MonoBehaviour
     }
 
     public EndCondition CheckEndConditions() {
+        foreach (var character in Characters) {
+            if (CellTypeAt(character.GridPosition) == CellType.DeathPit) {
+                return EndCondition.Lose;
+            }
+        }
         for (int i = 0; i < Characters.Length; i++) {
             var character = Characters[i];
-            switch (CellTypeAt(character.GridPosition)) {
-                case CellType.DeathPit:
-                    return EndCondition.Lose;
-                default:
-                    for (int j = i + 1; j < Characters.Length; j++) {
-                        var other = Characters[j];
-                        if (isAdjacent(character.GridPosition, other.GridPosition)) {
-                            var contiguous = new List<GridMovement>();
-                            contiguous.Add(character);
-                            contiguous.Add(other);
-                            while (contiguous.Count < Characters.Length) {
-                                bool found = false;
-                                foreach (var more in Characters) {
-                                    if (contiguous.Contains(more)) continue;
-                                    foreach (var clustered in contiguous) {
-                                        if (isAdjacent(more.GridPosition, clustered.GridPosition)) {
-                                            found = true;
-                                            contiguous.Add(more);
-                                            break;
-                                        }
-                                    }
+            for (int j = i + 1; j < Characters.Length; j++) {
+                var other = Characters[j];
+                if (isAdjacent(character.GridPosition, other.GridPosition)) {
+                    var contiguous = new List<GridMovement>();
+                    contiguous.Add(character);
+                    contiguous.Add(other);
+                    while (contiguous.Count < Characters.Length) {
+                        bool found = false;
+                        foreach (var more in Characters) {
+                            if (contiguous.Contains(more)) continue;
+                            foreach (var clustered in contiguous) {
+                                if (isAdjacent(more.GridPosition, clustered.GridPosition)) {
+                                    found = true;
+                                    contiguous.Add(more);
+                                    break;
                                 }
-                                if (!found) break;
                             }
-                            if (contiguous.Count >= Characters.Length) return EndCondition.Win;
                         }
+                        if (!found) break;
                     }
-                    break;
+                    if (contiguous.Count >= Characters.Length) return EndCondition.Win;
+                }
             }
         }
         return EndCondition.None;

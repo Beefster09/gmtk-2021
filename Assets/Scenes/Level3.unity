@@ -1484,7 +1484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 666294472861087090, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
       propertyPath: NextLevelPath.m_SceneName
-      value: Leve4l
+      value: Level4
       objectReference: {fileID: 0}
     - target: {fileID: 666294472861087090, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
       propertyPath: NextLevelPath.m_SceneAsset
@@ -1553,11 +1553,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7232988568581553368, guid: 897c101d54b09e74fbd8fe1d724cb633, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1708709
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7232988568581553368, guid: 897c101d54b09e74fbd8fe1d724cb633, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.119134
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7232988568581553368, guid: 897c101d54b09e74fbd8fe1d724cb633, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1610,11 +1610,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3056261367141323208, guid: 573d093d3a0ca144fa9afa576480a85d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.10579193
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3056261367141323208, guid: 573d093d3a0ca144fa9afa576480a85d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.058414
+      value: 3.51
       objectReference: {fileID: 0}
     - target: {fileID: 3056261367141323208, guid: 573d093d3a0ca144fa9afa576480a85d, type: 3}
       propertyPath: m_LocalPosition.z

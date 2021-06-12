@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 761011245595899018, guid: f30352a0c305f2c43b1496f434a58abc, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 761011245595899018, guid: f30352a0c305f2c43b1496f434a58abc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -272,7 +272,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3056261367141323208, guid: 573d093d3a0ca144fa9afa576480a85d, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3056261367141323208, guid: 573d093d3a0ca144fa9afa576480a85d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -317,6 +317,10 @@ PrefabInstance:
     - target: {fileID: 3056261367141323213, guid: 573d093d3a0ca144fa9afa576480a85d, type: 3}
       propertyPath: m_Name
       value: Starfish
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056261367141323214, guid: 573d093d3a0ca144fa9afa576480a85d, type: 3}
+      propertyPath: AutoSelect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 573d093d3a0ca144fa9afa576480a85d, type: 3}
@@ -1333,7 +1337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 666294472861087093, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 666294472861087093, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1388,6 +1392,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1032624250361736096, guid: 0441e6022a85d71418b7665eec55c5e2, type: 3}
+      propertyPath: AutoSelect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1032624250361736097, guid: 0441e6022a85d71418b7665eec55c5e2, type: 3}
       propertyPath: m_Name
       value: Frog
