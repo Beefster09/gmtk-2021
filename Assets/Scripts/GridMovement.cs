@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class GridMovement : MonoBehaviour
 {
-    GameObject Level;
+    Level map;
 
     Vector2 StartPos;
     Vector2 TargetPos;
 
     Vector2Int GridPosition;
+    Vector2 GridOffset = new Vector2(0.5f, 0.5f);
 
     // input map
     [SerializeField]
@@ -31,9 +32,10 @@ public class GridMovement : MonoBehaviour
     void Start()
     {
         GridPosition = new Vector2Int(
-            (int) Mathf.Round(transform.position.x),
-            (int) Mathf.Round(transform.position.y)
+            (int) Mathf.Floor(Mathf.Floor(transform.position.x) + GridOffset.x),
+            (int) Mathf.Floor(Mathf.Floor(transform.position.y) + GridOffset.y)
         );
+        map = FindObjectOfType<Level>();
     }
 
     // Update is called once per frame
@@ -50,22 +52,11 @@ public class GridMovement : MonoBehaviour
         }
         else {
             transform.position = new Vector3(
-                GridPosition.x,
-                GridPosition.y,
+                GridPosition.x + GridOffset.x,
+                GridPosition.y + GridOffset.y,
                 0f
             );
         }
-    }
-
-    void Move(Vector2Int offset) {
-        GridPosition += offset;
-        StartPos = new Vector2(
-            transform.position.x,
-            transform.position.y
-        );
-        TargetPos = GridPosition;
-
-        MoveTime = 1f;
     }
 
     public void MappedMove(Vector2 inputVec) {
@@ -83,6 +74,33 @@ public class GridMovement : MonoBehaviour
         }
         else if (Vector2.Dot(norm, Vector2.down) > ROOT2_2) {
             Move(DownAction);
+        }
+    }
+
+    void Move(Vector2Int offset) {
+        var dest = GridPosition + offset;
+        if (!IsSolid(dest)) {  // TODO: sliding, short jumps, walls on the way
+            GridPosition = dest;
+
+            StartPos = new Vector2(
+                transform.position.x,
+                transform.position.y
+            );
+            TargetPos = GridPosition + GridOffset;
+
+            MoveTime = 1f;
+        }
+    }
+
+    bool IsSolid(Vector2Int pos) {
+        switch (map.CellTypeAt(pos)) {
+            case CellType.Wall: return true;
+
+            default: {
+                foreach(var character in FindObjectsOfType<GridMovement>()) {
+                    if (character.GridPosition == pos) return true;
+                }
+            } return false;
         }
     }
 }

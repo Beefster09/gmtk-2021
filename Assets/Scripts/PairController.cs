@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PairController : MonoBehaviour
 {
-    public float InputRepeatDelay = 2.0f;
-    public float InputRepeat = 0.25f;
+    public float InputRepeatDelay = 0.5f;
+    public float InputRepeat = 0.1f;
 
     bool isHeld = false;
     bool isRepeating = false;
@@ -91,10 +91,22 @@ public class PairController : MonoBehaviour
                     );
                     if (Vector2.Distance(charPos, clickPoint) < 0.5f) {
                         if (Object.ReferenceEquals(character, CharacterPair[1 - i])) {
-                            // It's the other character in the pair, so swap the selections
-                            var tmp = CharacterPair[0];
-                            CharacterPair[0] = CharacterPair[1];
-                            CharacterPair[1] = tmp;
+                            if (CharacterPair[i] == null) {
+                                CharacterPair[i] = character;
+                                CharacterPair[1 - i] = null;
+
+                                SelectorPair[1 - i].GetComponent<ParticleSystem>()?.Stop(false);
+
+                                SelectorPair[i].position = character.transform.position;
+                                SelectorPair[i].GetComponent<ParticleSystem>()?.Play();
+                                SelectorPairVel[i] = Vector3.zero;
+                            }
+                            else {
+                                // It's the other character in the pair, so swap the selections
+                                var tmp = CharacterPair[0];
+                                CharacterPair[0] = CharacterPair[1];
+                                CharacterPair[1] = tmp;
+                            }
                         }
                         else if (Object.ReferenceEquals(character, CharacterPair[i])) {
                             // Same character, deactivate
@@ -111,7 +123,6 @@ public class PairController : MonoBehaviour
                             CharacterPair[i] = character;
                             SelectorPair[i].GetComponent<ParticleSystem>()?.Play();
                         }
-                        // TODO particle effects on selection
                         break;
                     }
                 }
