@@ -2502,6 +2502,14 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[113].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 666294472861087090, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: NextLevelPath.m_SceneName
+      value: Level5
+      objectReference: {fileID: 0}
+    - target: {fileID: 666294472861087090, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: NextLevelPath.m_SceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 6f8c29c938e18f74c8be2b2efa12bb6c, type: 3}
     - target: {fileID: 666294472861087093, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2703,6 +2711,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Octopus
       objectReference: {fileID: 0}
+    - target: {fileID: 502916219469649125, guid: f362bbf58216649459f0b16c7dcbd04b, type: 3}
+      propertyPath: AutoSelect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 502916219469649127, guid: f362bbf58216649459f0b16c7dcbd04b, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2756,6 +2768,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1032624250361736096, guid: 0441e6022a85d71418b7665eec55c5e2, type: 3}
+      propertyPath: AutoSelect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1032624250361736097, guid: 0441e6022a85d71418b7665eec55c5e2, type: 3}
       propertyPath: m_Name
       value: Frog
