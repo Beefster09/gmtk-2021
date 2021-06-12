@@ -30,6 +30,8 @@ public class GridMovement : MonoBehaviour
     float MoveSpeed = 5f;
     const float ROOT2_2 = 0.707106f;
 
+    public bool AutoSelect = false;
+
     // Start is called before the first frame update
     void Start()
     {

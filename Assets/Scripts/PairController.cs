@@ -28,6 +28,11 @@ public class PairController : MonoBehaviour
         SelectorPair[0] = transform.GetChild(0);
         SelectorPair[1] = transform.GetChild(1);
         map = FindObjectOfType<Level>();
+        int i = 0;
+        foreach (var character in FindObjectsOfType<GridMovement>()) {
+            if (character.AutoSelect) SelectCharacter(i++, character);
+            if (i >= 2) break;
+        }
     }
 
     // Update is called once per frame
@@ -99,14 +104,8 @@ public class PairController : MonoBehaviour
                     if (Vector2.Distance(charPos, clickPoint) < 0.5f) {
                         if (Object.ReferenceEquals(character, CharacterPair[1 - i])) {
                             if (CharacterPair[i] == null) {
-                                CharacterPair[i] = character;
-                                CharacterPair[1 - i] = null;
-
-                                SelectorPair[1 - i].GetComponent<ParticleSystem>()?.Stop(false);
-
-                                SelectorPair[i].position = character.transform.position;
-                                SelectorPair[i].GetComponent<ParticleSystem>()?.Play();
-                                SelectorPairVel[i] = Vector3.zero;
+                                DeselectCharacter(1 - i);
+                                SelectCharacter(i, character);
                             }
                             else {
                                 // It's the other character in the pair, so swap the selections
@@ -117,18 +116,11 @@ public class PairController : MonoBehaviour
                         }
                         else if (Object.ReferenceEquals(character, CharacterPair[i])) {
                             // Same character, deactivate
-                            CharacterPair[i] = null;
-                            SelectorPair[i].GetComponent<ParticleSystem>()?.Stop(false);
+                            DeselectCharacter(i);
                             break;
-                            // TODO? cycle select for characters on the same cell?
                         }
                         else {
-                            if (CharacterPair[i] == null) {
-                                SelectorPair[i].position = character.transform.position;
-                                SelectorPairVel[i] = Vector3.zero;
-                            }
-                            CharacterPair[i] = character;
-                            SelectorPair[i].GetComponent<ParticleSystem>()?.Play();
+                            SelectCharacter(i, character);
                         }
                         break;
                     }
@@ -153,14 +145,29 @@ public class PairController : MonoBehaviour
         switch (map.CheckEndConditions()) {
             case Level.EndCondition.Win:
                 Debug.Log("WINNER!");
-                // map.WinLevel()
+                map.WinLevel();
                 Active = false;
                 break;
             case Level.EndCondition.Lose:
                 Debug.Log("LOSER!");
-                // map.LoseLevel()
+                map.LoseLevel();
                 Active = false;
                 break;
         }
+    }
+
+    void SelectCharacter(int index, GridMovement character) {
+        if (CharacterPair[index] == null) {
+            SelectorPair[index].position = character.transform.position;
+            SelectorPairVel[index] = Vector3.zero;
+        }
+        CharacterPair[index] = character;
+        SelectorPair[index].GetComponent<ParticleSystem>()?.Play();
+    }
+
+
+    void DeselectCharacter(int index) {
+        CharacterPair[index] = null;
+        SelectorPair[index].GetComponent<ParticleSystem>()?.Stop(false);
     }
 }

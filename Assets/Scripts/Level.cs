@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(MultitrackMusicPlayer))]
 public class Level : MonoBehaviour
 {
-
-    Tilemap GameplayLayer;
 
     public enum EndCondition {
         None,
@@ -16,9 +15,13 @@ public class Level : MonoBehaviour
         Lose
     }
 
+    public MultitrackMusicPlayer Music {get; private set;}
+
+    Tilemap GameplayLayer;
     GridMovement[] Characters;
 
-    public MultitrackMusicPlayer Music {get; private set;}
+    [SerializeField]
+    SceneField NextLevelPath;
 
     // Start is called before the first frame update
     void Start()
@@ -82,6 +85,15 @@ public class Level : MonoBehaviour
         return Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y) <= 1;
     }
 
-    void WinLevel() {}
-    void LoseLevel() {}
+    public void WinLevel() {
+        NextLevel();
+    }
+
+    public void LoseLevel() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().path);
+    }
+
+    public void NextLevel() {
+        SceneManager.LoadScene(NextLevelPath);
+    }
 }

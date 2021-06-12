@@ -1463,6 +1463,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Normal
       objectReference: {fileID: 0}
+    - target: {fileID: 502916219469649125, guid: f362bbf58216649459f0b16c7dcbd04b, type: 3}
+      propertyPath: AutoSelect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 502916219469649127, guid: f362bbf58216649459f0b16c7dcbd04b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1738,6 +1742,10 @@ PrefabInstance:
     - target: {fileID: 7232988568581553368, guid: 897c101d54b09e74fbd8fe1d724cb633, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232988568581553374, guid: 897c101d54b09e74fbd8fe1d724cb633, type: 3}
+      propertyPath: AutoSelect
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7232988568581553375, guid: 897c101d54b09e74fbd8fe1d724cb633, type: 3}
       propertyPath: m_Name
