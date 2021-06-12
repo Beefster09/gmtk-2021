@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+[RequireComponent(typeof(MultitrackMusicPlayer))]
 public class Level : MonoBehaviour
 {
 
@@ -17,6 +18,8 @@ public class Level : MonoBehaviour
 
     GridMovement[] Characters;
 
+    public MultitrackMusicPlayer Music {get; private set;}
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,12 +30,7 @@ public class Level : MonoBehaviour
                 break;
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Music = GetComponent<MultitrackMusicPlayer>();
     }
 
     public CellType CellTypeAt(Vector2Int pos) {
@@ -83,4 +81,7 @@ public class Level : MonoBehaviour
     bool isAdjacent(Vector2Int a, Vector2Int b) {
         return Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y) <= 1;
     }
+
+    void WinLevel() {}
+    void LoseLevel() {}
 }

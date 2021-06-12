@@ -33,11 +33,13 @@ public class PairController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Active && CharacterPair[0] != null && CharacterPair[1] != null) {
-            Vector2 move = new Vector2(
+        if (CharacterPair[0] != null && CharacterPair[1] != null) {
+            Vector2 move = Active? new Vector2(
                 Input.GetAxisRaw("Horizontal"),
                 Input.GetAxisRaw("Vertical")
-            );
+            ) : Vector2.zero;
+
+            map.Music.SetTrackVolume(1, 1f);
 
             // Process input
             if (move.magnitude > InputDeadzone) {
@@ -73,6 +75,7 @@ public class PairController : MonoBehaviour
             }
         }
         else {
+            map.Music.SetTrackVolume(1, 0f);
             isHeld = false;
             isRepeating = false;
         }
