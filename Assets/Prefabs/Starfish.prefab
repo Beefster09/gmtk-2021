@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3056261367141323208}
   - component: {fileID: 3056261367141323215}
   - component: {fileID: 3056261367141323214}
+  - component: {fileID: -8774266005948763455}
   m_Layer: 0
   m_Name: Starfish
   m_TagString: Untagged
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: -8258828870174164931, guid: 543dec07e9fc6c3478fe5418c8262fe4, type: 3}
   m_Color: {r: 1, g: 1, b: 0.98039216, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,3 +101,23 @@ MonoBehaviour:
   LeftAction: {x: -1, y: 1}
   RightAction: {x: 1, y: -1}
   MoveSpeed: 5
+  AutoSelect: 0
+--- !u!95 &-8774266005948763455
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3056261367141323213}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf975008e9e081f45a0f70226346f444, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
