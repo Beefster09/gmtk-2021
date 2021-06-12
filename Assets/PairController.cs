@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PairController : MonoBehaviour
 {
-    GridMovement[] CharacterPair = new GridMovement[]{null, null};
-
     public float InputRepeatDelay = 2.0f;
     public float InputRepeat = 0.25f;
 
@@ -14,10 +12,18 @@ public class PairController : MonoBehaviour
     Vector2 HoldReferenceDir = Vector2.zero;
     float HoldTime = 0f;
 
+    public float SelectorFollowTime = 0.05f;
+
+    GridMovement[] CharacterPair = new GridMovement[]{null, null};
+    Transform[] SelectorPair = new Transform[]{null, null};
+    Vector3[] SelectorPairVel = new Vector3[]{Vector3.zero, Vector3.zero};
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        SelectorPair[0] = transform.GetChild(0);
+        SelectorPair[1] = transform.GetChild(1);
     }
 
     // Update is called once per frame
@@ -79,21 +85,47 @@ public class PairController : MonoBehaviour
                 );
                 Vector2 clickPoint = new Vector2(clickPoint3d.x, clickPoint3d.y);
                 foreach (var character in FindObjectsOfType<GridMovement>()) {
-                    if (Object.ReferenceEquals(character, CharacterPair[1 - i])) continue;
                     Vector2 charPos = new Vector2(
                         character.transform.position.x,
                         character.transform.position.y
                     );
                     if (Vector2.Distance(charPos, clickPoint) < 0.5f) {
-                        CharacterPair[i] = character;
+                        if (Object.ReferenceEquals(character, CharacterPair[1 - i])) {
+                            // It's the other character in the pair, so swap the selections
+                            var tmp = CharacterPair[0];
+                            CharacterPair[0] = CharacterPair[1];
+                            CharacterPair[1] = tmp;
+                        }
+                        else if (Object.ReferenceEquals(character, CharacterPair[i])) {
+                            // Same character, deactivate
+                            CharacterPair[i] = null;
+                            SelectorPair[i].GetComponent<ParticleSystem>()?.Stop(false);
+                            break;
+                            // TODO? cycle select for characters on the same cell?
+                        }
+                        else {
+                            if (CharacterPair[i] == null) {
+                                SelectorPair[i].position = character.transform.position;
+                                SelectorPairVel[i] = Vector3.zero;
+                            }
+                            CharacterPair[i] = character;
+                            SelectorPair[i].GetComponent<ParticleSystem>()?.Play();
+                        }
                         // TODO particle effects on selection
-                        // TODO? cycle select for characters on the same cell?
+                        break;
                     }
                 }
             }
-        }
 
-        // TODO Move selection indicators
+            if (CharacterPair[i] != null) {
+                SelectorPair[i].position = Vector3.SmoothDamp(
+                    SelectorPair[i].position,
+                    CharacterPair[i].transform.position,
+                    ref SelectorPairVel[i],
+                    SelectorFollowTime
+                );
+            }
+        }
     }
 
     void MovePair(Vector2 move) {
