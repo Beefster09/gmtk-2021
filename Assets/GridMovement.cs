@@ -9,39 +9,36 @@ public class GridMovement : MonoBehaviour
     Vector2 StartPos;
     Vector2 TargetPos;
 
-    Vector2 GridOffset;
     Vector2Int GridPosition;
 
-    public bool Active = true;
-
-    // TODO input map
-    public Vector2Int UpAction = Vector2Int.up;
-    public Vector2Int DownAction = Vector2Int.down;
-    public Vector2Int LeftAction = Vector2Int.left;
-    public Vector2Int RightAction = Vector2Int.right;
+    // input map
+    [SerializeField]
+    Vector2Int UpAction = Vector2Int.up;
+    [SerializeField]
+    Vector2Int DownAction = Vector2Int.down;
+    [SerializeField]
+    Vector2Int LeftAction = Vector2Int.left;
+    [SerializeField]
+    Vector2Int RightAction = Vector2Int.right;
 
     float MoveTime = 0f;
 
-    const float MovesPerSecond = 5f;
+    [SerializeField]
+    float MoveSpeed = 5f;
+    const float ROOT2_2 = 0.707106f;
 
     // Start is called before the first frame update
     void Start()
     {
-        GridOffset = new Vector2(
-            Mathf.Repeat(transform.position.x, 1.0f),
-            Mathf.Repeat(transform.position.y, 1.0f)
-        );
         GridPosition = new Vector2Int(
-            (int) transform.position.x,
-            (int) transform.position.y
+            (int) Mathf.Round(transform.position.x),
+            (int) Mathf.Round(transform.position.y)
         );
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!Active) return;
-
         if (MoveTime > 0f) {
             transform.position = new Vector3(
                 Mathf.SmoothStep(StartPos.x, TargetPos.x, 1f - MoveTime),
@@ -49,30 +46,14 @@ public class GridMovement : MonoBehaviour
                 0f
             );
 
-            MoveTime -= Time.deltaTime * MovesPerSecond;
+            MoveTime -= Time.deltaTime * MoveSpeed;
         }
         else {
             transform.position = new Vector3(
-                GridPosition.x + GridOffset.x,
-                GridPosition.y + GridOffset.y,
+                GridPosition.x,
+                GridPosition.y,
                 0f
             );
-
-            float horiz = Input.GetAxis("Horizontal");
-            float vert = Input.GetAxis("Vertical");
-
-            if (horiz > 0) {
-                Move(RightAction);
-            }
-            else if (horiz < 0) {
-                Move(LeftAction);
-            }
-            else if (vert > 0) {
-                Move(UpAction);
-            }
-            else if (vert < 0) {
-                Move(DownAction);
-            }
         }
     }
 
@@ -82,8 +63,26 @@ public class GridMovement : MonoBehaviour
             transform.position.x,
             transform.position.y
         );
-        TargetPos = GridPosition + GridOffset;
+        TargetPos = GridPosition;
 
         MoveTime = 1f;
+    }
+
+    public void MappedMove(Vector2 inputVec) {
+        if (inputVec.sqrMagnitude < 0.01f) return;  // It's basically zero; nothing to do
+
+        var norm = inputVec.normalized;
+        if (Vector2.Dot(norm, Vector2.right) > ROOT2_2) {
+            Move(RightAction);
+        }
+        else if (Vector2.Dot(norm, Vector2.left) > ROOT2_2) {
+            Move(LeftAction);
+        }
+        else if (Vector2.Dot(norm, Vector2.up) > ROOT2_2) {
+            Move(UpAction);
+        }
+        else if (Vector2.Dot(norm, Vector2.down) > ROOT2_2) {
+            Move(DownAction);
+        }
     }
 }
