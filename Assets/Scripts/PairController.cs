@@ -18,6 +18,7 @@ public class PairController : MonoBehaviour
     GridMovement[] CharacterPair = new GridMovement[]{null, null};
     Transform[] SelectorPair = new Transform[]{null, null};
     Vector3[] SelectorPairVel = new Vector3[]{Vector3.zero, Vector3.zero};
+    GridMovement[] AllCharacters;
 
     Level map;
     bool Active = true;
@@ -25,11 +26,12 @@ public class PairController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AllCharacters = FindObjectsOfType<GridMovement>();
         SelectorPair[0] = transform.GetChild(0);
         SelectorPair[1] = transform.GetChild(1);
         map = FindObjectOfType<Level>();
         int i = 0;
-        foreach (var character in FindObjectsOfType<GridMovement>()) {
+        foreach (var character in AllCharacters) {
             if (character.AutoSelect) SelectCharacter(i++, character);
             if (i >= 2) break;
         }
@@ -85,6 +87,12 @@ public class PairController : MonoBehaviour
             isRepeating = false;
         }
 
+        if (Input.GetButtonDown("Jump")) {
+            foreach (var character in AllCharacters) {
+                character.Move(Vector2Int.zero);
+            }
+        }
+
         // Check mouse clicks and reassign one character of the pair
         for (int i = 0; i < 2; i++) {
             if (Input.GetMouseButtonDown(i)) {
@@ -96,7 +104,7 @@ public class PairController : MonoBehaviour
                     )
                 );
                 Vector2 clickPoint = new Vector2(clickPoint3d.x, clickPoint3d.y);
-                foreach (var character in FindObjectsOfType<GridMovement>()) {
+                foreach (var character in AllCharacters) {
                     Vector2 charPos = new Vector2(
                         character.transform.position.x,
                         character.transform.position.y
@@ -139,8 +147,13 @@ public class PairController : MonoBehaviour
     }
 
     void MovePair(Vector2 move) {
-        foreach (var character in CharacterPair) {
-            character.MappedMove(move);
+        foreach (var character in AllCharacters) {
+            if (Object.ReferenceEquals(character, CharacterPair[0]) || Object.ReferenceEquals(character, CharacterPair[1])) {
+                character.MappedMove(move);
+            }
+            else {
+                character.Move(Vector2Int.zero);
+            }
         }
         switch (map.CheckEndConditions()) {
             case Level.EndCondition.Win:

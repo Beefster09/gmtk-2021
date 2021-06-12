@@ -81,9 +81,45 @@ public class GridMovement : MonoBehaviour
         }
     }
 
-    void Move(Vector2Int offset) {
+    public void Move(Vector2Int offset) {
         var dest = GridPosition + offset;
-        if (!IsSolid(dest)) {  // TODO: sliding, short jumps, walls on the way
+        switch (map.CellTypeAt(dest)) {
+            case CellType.ConveyorUp:
+                dest += Vector2Int.up;
+                break;
+            case CellType.ConveyorDown:
+                dest += Vector2Int.down;
+                break;
+            case CellType.ConveyorLeft:
+                dest += Vector2Int.left;
+                break;
+            case CellType.ConveyorRight:
+                dest += Vector2Int.right;
+                break;
+            case CellType.Wall:
+                if (Math.Abs(offset.x) == 2 || Math.Abs(offset.y) == 2) {  // Short hops
+                    Move(offset / 2);
+                    return;
+                }
+                else if (Math.Abs(offset.x) == 1 && Math.Abs(offset.y) == 1) {  // Diagonal slide
+                    var horiz = new Vector2Int(offset.x, 0);
+                    var vert = new Vector2Int(0, offset.y);
+                    var horizSolid = map.CellTypeAt(GridPosition + horiz) == CellType.Wall || IsOccupied(GridPosition + horiz);
+                    var vertSolid  = map.CellTypeAt(GridPosition + vert) == CellType.Wall  || IsOccupied(GridPosition + vert);
+                    if (horizSolid && !vertSolid) {
+                        Move(vert);
+                        return;
+                    }
+                    else if (!horizSolid && vertSolid) {
+                        Move(horiz);
+                        return;
+                    }
+                }
+                Move(Vector2Int.zero);
+                return;
+        }
+        var destType = map.CellTypeAt(dest);
+        if (destType != CellType.Wall && !IsOccupied(dest)) {
             GridPosition = dest;
 
             StartPos = new Vector2(
@@ -96,15 +132,14 @@ public class GridMovement : MonoBehaviour
         }
     }
 
-    bool IsSolid(Vector2Int pos) {
-        switch (map.CellTypeAt(pos)) {
-            case CellType.Wall: return true;
-
-            default: {
-                foreach(var character in FindObjectsOfType<GridMovement>()) {
-                    if (character.GridPosition == pos) return true;
-                }
-            } return false;
+    bool IsOccupied(Vector2Int pos) {
+        foreach(var character in FindObjectsOfType<GridMovement>()) {
+            if (character.GridPosition == pos) return true;
         }
+        return false;
+    }
+
+    int ManhattanMagnitude(Vector2Int vec) {
+        return Math.Abs(vec.x) + Math.Abs(vec.y);
     }
 }
