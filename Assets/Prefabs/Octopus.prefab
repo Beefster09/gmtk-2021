@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 502916219469649127}
   - component: {fileID: 502916219469649126}
   - component: {fileID: 502916219469649125}
+  - component: {fileID: 9146575371772929373}
+  - component: {fileID: 8947707976361937014}
   m_Layer: 0
   m_Name: Octopus
   m_TagString: Untagged
@@ -72,12 +74,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.317647, g: 0.5021829, b: 0.9254902, a: 1}
+  m_Sprite: {fileID: -8169660202427292414, guid: 05c81043863349f4a85ccc2be24c72d8, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -95,8 +97,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 585c1934b123fba4a94018d1bffceda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpAction: {x: 0, y: 1}
+  UpAction: {x: 1, y: 1}
   DownAction: {x: 0, y: -1}
   LeftAction: {x: -1, y: 0}
   RightAction: {x: 1, y: 0}
   MoveSpeed: 5
+--- !u!114 &9146575371772929373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502916219469649124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SpriteLibraryAsset: {fileID: 0}
+--- !u!95 &8947707976361937014
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502916219469649124}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9985bf96b9852b447929b7675caecc7a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
