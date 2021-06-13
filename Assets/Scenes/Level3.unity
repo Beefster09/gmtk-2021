@@ -297,8 +297,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000010929, y: 81}
-  m_SizeDelta: {x: 183.6795, y: 53.017}
+  m_AnchoredPosition: {x: 287.02356, y: -128.74574}
+  m_SizeDelta: {x: 219.9266, y: 86.9255}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &325506344
 MonoBehaviour:
@@ -321,11 +321,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 1
+    m_Font: {fileID: 12800000, guid: 0bc8fb293e4a2064bb613aea7e8715f7, type: 3}
+    m_FontSize: 11
+    m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -333,7 +333,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Kevin is the yellow one. He moves diagonally.
+  m_Text: 'Stella is a starfish.
+
+    She loves her friends.
+
+    She moves diagonally.'
 --- !u!222 &325506345
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7640,6 +7644,70 @@ PrefabInstance:
     - target: {fileID: 666294472861087095, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
       propertyPath: m_Name
       value: Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_TileAssetArray.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_TileSpriteArray.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_TileAssetArray.Array.data[2].m_Data
+      value: 
+      objectReference: {fileID: 11400000, guid: fbb15d3497645db4797a210ae3c65ad8, type: 2}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_TileAssetArray.Array.data[3].m_Data
+      value: 
+      objectReference: {fileID: 11400000, guid: 530f4fedc04938a40a59dcf117568e19, type: 2}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[2].m_Data
+      value: 
+      objectReference: {fileID: -3642208251427772964, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[3].m_Data
+      value: 
+      objectReference: {fileID: -317771678647371661, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_TileAssetArray.Array.data[0].m_RefCount
+      value: 1480
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_TileAssetArray.Array.data[2].m_RefCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_TileAssetArray.Array.data[3].m_RefCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[0].m_RefCount
+      value: 1480
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[2].m_RefCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[3].m_RefCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_Tiles.Array.data[1631].second.m_TileIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_Tiles.Array.data[1633].second.m_TileIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_Tiles.Array.data[1631].second.m_TileSpriteIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236892278153488606, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: m_Tiles.Array.data[1633].second.m_TileSpriteIndex
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
