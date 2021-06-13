@@ -97,12 +97,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 585c1934b123fba4a94018d1bffceda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AutoSelect: 0
   UpAction: {x: 0, y: 1}
   DownAction: {x: 0, y: -1}
   LeftAction: {x: -1, y: 0}
   RightAction: {x: 1, y: 0}
-  MoveSpeed: 5
-  AutoSelect: 0
+  UpAnimation: octo_up
+  DownAnimation: octo_down
+  LeftAnimation: octo_left
+  RightAnimation: octo_right
+  WinAnimation: octo_win_intro
+  LoseAnimation: octo_lose
+  MoveSpeed: 3
 --- !u!114 &9146575371772929373
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,15 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class GridMovement : MonoBehaviour
 {
-    Level map;
 
-    Vector2 StartPos;
-    Vector2 TargetPos;
-
-    public Vector2Int GridPosition {get; private set;}
-    Vector2 GridOffset = new Vector2(0.5f, 0.5f);
+    public bool AutoSelect = false;
 
     // input map
     [SerializeField]
@@ -23,16 +19,37 @@ public class GridMovement : MonoBehaviour
     [SerializeField]
     Vector2Int RightAction = Vector2Int.right;
 
+    [SerializeField]
+    string UpAnimation;
+    [SerializeField]
+    string DownAnimation;
+    [SerializeField]
+    string LeftAnimation;
+    [SerializeField]
+    string RightAnimation;
+    [SerializeField]
+    string WinAnimation;
+    [SerializeField]
+    string LoseAnimation;
+
+    Level map;
+
+    Vector2 StartPos;
+    Vector2 TargetPos;
+
+    public Vector2Int GridPosition {get; private set;}
+    Vector2 GridOffset = new Vector2(0.5f, 0.5f);
+
     float MoveTime = 0f;
 
     [SerializeField]
     float MoveSpeed = 5f;
     const float ROOT2_2 = 0.707106f;
 
-    public bool AutoSelect = false;
-
     GridMovement[] AllCharacters;
     List<Vector2Int> RollbackBuffer;
+
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +61,7 @@ public class GridMovement : MonoBehaviour
         map = FindObjectOfType<Level>();
         AllCharacters = FindObjectsOfType<GridMovement>();
         RollbackBuffer = new List<Vector2Int>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -76,15 +94,19 @@ public class GridMovement : MonoBehaviour
         var norm = inputVec.normalized;
         if (Vector2.Dot(norm, Vector2.right) > ROOT2_2) {
             Move(RightAction);
+            anim.Play("Base Layer." + RightAnimation, -1, 0f);
         }
         else if (Vector2.Dot(norm, Vector2.left) > ROOT2_2) {
             Move(LeftAction);
+            anim.Play("Base Layer." + LeftAnimation, -1, 0f);
         }
         else if (Vector2.Dot(norm, Vector2.up) > ROOT2_2) {
             Move(UpAction);
+            anim.Play("Base Layer." + UpAnimation, -1, 0f);
         }
         else if (Vector2.Dot(norm, Vector2.down) > ROOT2_2) {
             Move(DownAction);
+            anim.Play("Base Layer." + DownAnimation, -1, 0f);
         }
     }
 
@@ -176,5 +198,13 @@ public class GridMovement : MonoBehaviour
             if (character.GridPosition == GridPosition) return true;
         }
         return false;
+    }
+
+    public void Win() {
+        anim.Play("Base Layer." + WinAnimation);
+    }
+
+    public void Lose() {
+        anim.Play("Base Layer." + LoseAnimation);
     }
 }

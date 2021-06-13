@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1032624250361736098}
   - component: {fileID: 1032624250361736099}
   - component: {fileID: 1032624250361736096}
+  - component: {fileID: 1164986828287499176}
   m_Layer: 0
   m_Name: Frog
   m_TagString: Untagged
@@ -95,9 +96,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 585c1934b123fba4a94018d1bffceda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AutoSelect: 0
   UpAction: {x: 0, y: 2}
   DownAction: {x: 0, y: -2}
   LeftAction: {x: -2, y: 0}
   RightAction: {x: 2, y: 0}
-  MoveSpeed: 5
-  AutoSelect: 0
+  UpAnimation: frog_up
+  DownAnimation: frog_down
+  LeftAnimation: frog_left
+  RightAnimation: frog_right
+  WinAnimation: frog_win
+  LoseAnimation: frog_lose
+  MoveSpeed: 2
+--- !u!95 &1164986828287499176
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032624250361736097}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ad630ff3a2cd6d645b5deac9eabe10ee, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

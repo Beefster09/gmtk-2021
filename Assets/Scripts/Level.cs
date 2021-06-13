@@ -105,6 +105,10 @@ public class Level : MonoBehaviour
     IEnumerator coroutine;
 
     public void WinLevel() {
+        foreach (var character in Characters) {
+            character.Win();
+        }
+
         Music.StopAll();
 
         var intro = gameObject.AddComponent<AudioSource>();
@@ -131,6 +135,10 @@ public class Level : MonoBehaviour
     }
 
     public void LoseLevel() {
+        foreach (var character in Characters) {
+            character.Lose();
+        }
+
         Music.StopAll();
 
         var intro = gameObject.AddComponent<AudioSource>();
