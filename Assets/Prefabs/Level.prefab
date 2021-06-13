@@ -176,6 +176,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c6d4a91a421df4b9b677a34a6de613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WinFanfare:
+    intro: {fileID: 8300000, guid: f1049d781dc7a6c4ab3ed62f1f8ce98f, type: 3}
+    loop: {fileID: 8300000, guid: 031fd0255a656e74c8d85bc7c89cf1f6, type: 3}
+    volume: 1
+    startEnabled: 1
+  LoseJingle:
+    intro: {fileID: 8300000, guid: 59a70bbc83a696144845394fc2d6457b, type: 3}
+    loop: {fileID: 0}
+    volume: 1
+    startEnabled: 0
   NextLevelPath:
     m_SceneAsset: {fileID: 0}
     m_SceneName: 
@@ -194,9 +204,11 @@ MonoBehaviour:
   tracks:
   - intro: {fileID: 8300000, guid: b097ef361681c224596daa89d29843e5, type: 3}
     loop: {fileID: 8300000, guid: a59d099493bcd6b47812f43c40843c8c, type: 3}
+    volume: 1
     startEnabled: 1
   - intro: {fileID: 8300000, guid: dd4d81efcb83d3543850f5c522b3f2d3, type: 3}
     loop: {fileID: 8300000, guid: 3fb4b329f7d531446a544012d96736a9, type: 3}
+    volume: 1
     startEnabled: 0
   volumeChangeTime: 0.25
   masterVolume: 0.5

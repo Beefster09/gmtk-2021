@@ -16,6 +16,8 @@ public class Level : MonoBehaviour
     }
 
     public MultitrackMusicPlayer Music {get; private set;}
+    public Track WinFanfare;
+    public Track LoseJingle;
 
     Tilemap GameplayLayer;
     GridMovement[] Characters;
@@ -36,6 +38,13 @@ public class Level : MonoBehaviour
             }
         }
         Music = GetComponent<MultitrackMusicPlayer>();
+    }
+
+    void Update()
+    {
+        if (Input.GetButtonDown("Restart")) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().path);
+        }
     }
 
     public CellType CellTypeAt(Vector2Int pos) {
@@ -89,15 +98,52 @@ public class Level : MonoBehaviour
         return Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y) <= 1;
     }
 
+    public void NextLevel() {
+        SceneManager.LoadScene(NextLevelPath);
+    }
+
+    IEnumerator coroutine;
+
     public void WinLevel() {
+        Music.StopAll();
+
+        var intro = gameObject.AddComponent<AudioSource>();
+        intro.clip = WinFanfare.intro;
+        intro.volume = WinFanfare.volume;
+        intro.Play();
+
+        var loop = gameObject.AddComponent<AudioSource>();
+        loop.clip = WinFanfare.loop;
+        loop.volume = WinFanfare.volume;
+        loop.loop = true;
+        loop.PlayScheduled(AudioSettings.dspTime + WinFanfare.intro.length);
+
+        coroutine = WaitForAnyKeyThenNextLevel();
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator WaitForAnyKeyThenNextLevel() {
+        yield return null;
+        while (!Input.anyKeyDown) {
+            yield return null;
+        }
         NextLevel();
     }
 
     public void LoseLevel() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().path);
+        Music.StopAll();
+
+        var intro = gameObject.AddComponent<AudioSource>();
+        intro.clip = LoseJingle.intro;
+        intro.volume = LoseJingle.volume;
+        intro.Play();
+
+        coroutine = WaitThenRestartLevel(LoseJingle.intro.length);
+        StartCoroutine(coroutine);
     }
 
-    public void NextLevel() {
-        SceneManager.LoadScene(NextLevelPath);
+    private IEnumerator WaitThenRestartLevel(float waitTime) {
+        yield return new WaitForSeconds(waitTime);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().path);
     }
 }

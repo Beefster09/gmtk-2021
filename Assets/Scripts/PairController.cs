@@ -42,11 +42,13 @@ public class PairController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!Active) return;
+
         if (CharacterPair[0] != null && CharacterPair[1] != null) {
-            Vector2 move = Active? new Vector2(
+            Vector2 move = new Vector2(
                 Input.GetAxisRaw("Horizontal"),
                 Input.GetAxisRaw("Vertical")
-            ) : Vector2.zero;
+            );
 
             map.Music.SetTrackVolume(1, 1f);
 
@@ -173,14 +175,12 @@ public class PairController : MonoBehaviour
 
         switch (map.CheckEndConditions()) {
             case Level.EndCondition.Win:
-                Debug.Log("WINNER!");
                 map.WinLevel();
-                Active = false;
+                Deactivate();
                 break;
             case Level.EndCondition.Lose:
-                Debug.Log("LOSER!");
                 map.LoseLevel();
-                Active = false;
+                Deactivate();
                 break;
         }
     }
@@ -198,5 +198,12 @@ public class PairController : MonoBehaviour
     void DeselectCharacter(int index) {
         CharacterPair[index] = null;
         SelectorPair[index].GetComponent<ParticleSystem>()?.Stop(false);
+    }
+
+    void Deactivate() {
+        Active = false;
+        foreach (var selector in SelectorPair) {
+            selector?.GetComponent<ParticleSystem>()?.Stop(false);
+        }
     }
 }
