@@ -5458,6 +5458,18 @@ PrefabInstance:
       propertyPath: NextLevelPath.m_SceneAsset
       value: 
       objectReference: {fileID: 102900000, guid: e1e81579343f42640a82e2ed1a97d3aa, type: 3}
+    - target: {fileID: 666294472861087091, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: tracks.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 666294472861087091, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: tracks.Array.data[0].loop
+      value: 
+      objectReference: {fileID: 8300000, guid: 5e0edd1a865ea1a4681149c69d7f0e97, type: 3}
+    - target: {fileID: 666294472861087091, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
+      propertyPath: tracks.Array.data[0].intro
+      value: 
+      objectReference: {fileID: 8300000, guid: 78763ff2cd1364649821f1578777ae41, type: 3}
     - target: {fileID: 666294472861087093, guid: 0835fcc9ebe93974ab76729841f95625, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -5779,7 +5791,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: fb251ceeaf28fc1459252a9ca2826603, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
