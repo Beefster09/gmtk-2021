@@ -31,6 +31,9 @@ public class GridMovement : MonoBehaviour
 
     public bool AutoSelect = false;
 
+    GridMovement[] AllCharacters;
+    List<Vector2Int> RollbackBuffer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +42,8 @@ public class GridMovement : MonoBehaviour
             (int) Mathf.Floor(Mathf.Floor(transform.position.y) + GridOffset.y)
         );
         map = FindObjectOfType<Level>();
+        AllCharacters = FindObjectsOfType<GridMovement>();
+        RollbackBuffer = new List<Vector2Int>();
     }
 
     // Update is called once per frame
@@ -63,7 +68,10 @@ public class GridMovement : MonoBehaviour
     }
 
     public void MappedMove(Vector2 inputVec) {
-        if (inputVec.sqrMagnitude < 0.01f) return;  // It's basically zero; nothing to do
+        if (inputVec.sqrMagnitude < 0.01f) {
+            Move(Vector2Int.zero);
+            return;
+        }
 
         var norm = inputVec.normalized;
         if (Vector2.Dot(norm, Vector2.right) > ROOT2_2) {
@@ -81,30 +89,48 @@ public class GridMovement : MonoBehaviour
     }
 
     public void Move(Vector2Int offset) {
+        bool isFrogMove = Math.Abs(offset.x) == 2 || Math.Abs(offset.y) == 2;
+        if (isFrogMove) {
+            if (map.CellTypeAt(GridPosition + offset / 2) == CellType.Wall) {  // Wall is in the way for long jump
+                Move(Vector2Int.zero);
+                return;
+            }
+        }
+        RollbackBuffer.Clear();
         var dest = GridPosition + offset;
+        if (dest != GridPosition) {
+            RollbackBuffer.Add(GridPosition);
+        }
+        if (isFrogMove) {  // Frog: enable rollback to intermediate position
+            RollbackBuffer.Add(GridPosition + offset / 2);
+        }
         switch (map.CellTypeAt(dest)) {
             case CellType.ConveyorUp:
+                RollbackBuffer.Add(dest);
                 dest += Vector2Int.up;
                 break;
             case CellType.ConveyorDown:
+                RollbackBuffer.Add(dest);
                 dest += Vector2Int.down;
                 break;
             case CellType.ConveyorLeft:
+                RollbackBuffer.Add(dest);
                 dest += Vector2Int.left;
                 break;
             case CellType.ConveyorRight:
+                RollbackBuffer.Add(dest);
                 dest += Vector2Int.right;
                 break;
             case CellType.Wall:
-                if (Math.Abs(offset.x) == 2 || Math.Abs(offset.y) == 2) {  // Short hops
+                if (isFrogMove) {  // Short hops
                     Move(offset / 2);
                     return;
                 }
                 else if (Math.Abs(offset.x) == 1 && Math.Abs(offset.y) == 1) {  // Diagonal slide
                     var horiz = new Vector2Int(offset.x, 0);
                     var vert = new Vector2Int(0, offset.y);
-                    var horizSolid = map.CellTypeAt(GridPosition + horiz) == CellType.Wall || IsOccupied(GridPosition + horiz);
-                    var vertSolid  = map.CellTypeAt(GridPosition + vert) == CellType.Wall  || IsOccupied(GridPosition + vert);
+                    var horizSolid = map.CellTypeAt(GridPosition + horiz) == CellType.Wall;
+                    var vertSolid  = map.CellTypeAt(GridPosition + vert) == CellType.Wall;
                     if (horizSolid && !vertSolid) {
                         Move(vert);
                         return;
@@ -117,16 +143,10 @@ public class GridMovement : MonoBehaviour
                 Move(Vector2Int.zero);
                 return;
             default:
-                if (Math.Abs(offset.x) == 2 || Math.Abs(offset.y) == 2) {
-                    if (map.CellTypeAt(GridPosition + offset / 2) == CellType.Wall) {  // Wall is in the way for long jump
-                        Move(Vector2Int.zero);
-                        return;
-                    }
-                }
                 break;
         }
         var destType = map.CellTypeAt(dest);
-        if (destType != CellType.Wall && !IsOccupied(dest)) {
+        if (destType != CellType.Wall) {
             GridPosition = dest;
 
             StartPos = new Vector2(
@@ -139,14 +159,22 @@ public class GridMovement : MonoBehaviour
         }
     }
 
-    bool IsOccupied(Vector2Int pos) {
-        foreach(var character in FindObjectsOfType<GridMovement>()) {
-            if (character.GridPosition == pos) return true;
-        }
-        return false;
+    // corrects the position after moving
+    public void Rollback() {
+        GridPosition = RollbackBuffer[RollbackBuffer.Count - 1];
+        TargetPos = GridPosition + GridOffset;
+        RollbackBuffer.RemoveAt(RollbackBuffer.Count - 1);
     }
 
-    int ManhattanMagnitude(Vector2Int vec) {
-        return Math.Abs(vec.x) + Math.Abs(vec.y);
+    public bool CanRollback() {
+        return RollbackBuffer.Count > 0;
+    }
+
+    public bool IsOverlapping() {
+        foreach(var character in AllCharacters) {
+            if (ReferenceEquals(this, character)) continue;
+            if (character.GridPosition == GridPosition) return true;
+        }
+        return false;
     }
 }

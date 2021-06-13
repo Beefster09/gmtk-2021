@@ -19,6 +19,7 @@ public class Level : MonoBehaviour
 
     Tilemap GameplayLayer;
     GridMovement[] Characters;
+    Door[] Doors;
 
     [SerializeField]
     SceneField NextLevelPath;
@@ -27,6 +28,7 @@ public class Level : MonoBehaviour
     void Start()
     {
         Characters = FindObjectsOfType<GridMovement>();
+        Doors = FindObjectsOfType<Door>();
         foreach (var tilemap in FindObjectsOfType<Tilemap>()) {
             if (tilemap.gameObject.tag == "Gameplay") {
                 GameplayLayer = tilemap;
@@ -37,6 +39,9 @@ public class Level : MonoBehaviour
     }
 
     public CellType CellTypeAt(Vector2Int pos) {
+        foreach (var door in Doors) {
+            if (!door.isOpen && door.GridPosition == pos) return CellType.Wall;
+        }
         var tile = GameplayLayer.GetTile(new Vector3Int(pos.x, pos.y, 0)) as PuzzleTile;
 
         if (tile != null) {

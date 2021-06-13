@@ -3172,6 +3172,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Octopus
       objectReference: {fileID: 0}
+    - target: {fileID: 502916219469649125, guid: f362bbf58216649459f0b16c7dcbd04b, type: 3}
+      propertyPath: AutoSelect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 502916219469649127, guid: f362bbf58216649459f0b16c7dcbd04b, type: 3}
       propertyPath: m_RootOrder
       value: 1
