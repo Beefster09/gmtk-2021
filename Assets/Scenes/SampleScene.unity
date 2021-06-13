@@ -6601,11 +6601,11 @@ PrefabInstance:
     - target: {fileID: 2905376924546663655, guid: 642c40122554f534d862804ff48e9c56, type: 3}
       propertyPath: OpenDoor
       value: 
-      objectReference: {fileID: 6732870910531023, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
+      objectReference: {fileID: -6985117363303071740, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
     - target: {fileID: 2905376924546663655, guid: 642c40122554f534d862804ff48e9c56, type: 3}
       propertyPath: ClosedDoor
       value: 
-      objectReference: {fileID: -396035294860175646, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
+      objectReference: {fileID: 6732870910531023, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 642c40122554f534d862804ff48e9c56, type: 3}
 --- !u!1001 &3056261366635300940
