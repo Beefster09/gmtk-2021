@@ -6080,7 +6080,7 @@ MonoBehaviour:
   m_Text: 'Freddie the frog needs his homies, too.
 
     He can jump over holes and
-    moves two tiles.'
+    move two tiles.'
 --- !u!222 &1130994978
 CanvasRenderer:
   m_ObjectHideFlags: 0
