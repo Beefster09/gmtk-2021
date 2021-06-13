@@ -19,6 +19,8 @@ public class Level : MonoBehaviour
     public Track WinFanfare;
     public Track LoseJingle;
 
+    public Animator sceneChangeCircle;
+
     Tilemap GameplayLayer;
     GridMovement[] Characters;
     Door[] Doors;
@@ -98,7 +100,9 @@ public class Level : MonoBehaviour
         return Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y) <= 1;
     }
 
-    public void NextLevel() {
+    public IEnumerator NextLevel() {
+        sceneChangeCircle.SetTrigger("Change");
+        yield return new WaitForSeconds(0.7f);
         SceneManager.LoadScene(NextLevelPath);
     }
 
@@ -131,7 +135,7 @@ public class Level : MonoBehaviour
         while (!Input.anyKeyDown) {
             yield return null;
         }
-        NextLevel();
+        StartCoroutine(NextLevel());
     }
 
     public void LoseLevel() {
@@ -152,6 +156,8 @@ public class Level : MonoBehaviour
 
     private IEnumerator WaitThenRestartLevel(float waitTime) {
         yield return new WaitForSeconds(waitTime);
+        sceneChangeCircle.SetTrigger("Change");
+        yield return new WaitForSeconds(0.7f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().path);
     }
 }
