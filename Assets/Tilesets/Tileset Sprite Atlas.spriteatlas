@@ -44,7 +44,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
-    totalSpriteSurfaceArea: 8704
+    totalSpriteSurfaceArea: 9472
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -64,6 +64,9 @@ SpriteAtlas:
   - {fileID: 8233071653059976297, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
   - {fileID: -7775419718026629507, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
   - {fileID: -781294158744790408, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
+  - {fileID: 3048538982666575687, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
+  - {fileID: -1518774645772049220, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
+  - {fileID: -6157781805458569218, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
   - {fileID: -1762573714345474896, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
   - {fileID: 8642771837104280003, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
   - {fileID: -6985117363303071740, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
@@ -99,6 +102,9 @@ SpriteAtlas:
   - tileset_7
   - tileset_8
   - tileset_9
+  - decor2
+  - decor3
+  - decor1
   - tileset_13
   - tileset_12
   - tileset_11
