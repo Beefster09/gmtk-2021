@@ -19,6 +19,7 @@ public class PairController : MonoBehaviour
     Transform[] SelectorPair = new Transform[]{null, null};
     Vector3[] SelectorPairVel = new Vector3[]{Vector3.zero, Vector3.zero};
     GridMovement[] AllCharacters;
+    List<GridMovement> DeOverlapChars;
 
     Level map;
     bool Active = true;
@@ -35,6 +36,7 @@ public class PairController : MonoBehaviour
             if (character.AutoSelect) SelectCharacter(i++, character);
             if (i >= 2) break;
         }
+        DeOverlapChars = new List<GridMovement>(AllCharacters.Length);
     }
 
     // Update is called once per frame
@@ -88,9 +90,7 @@ public class PairController : MonoBehaviour
         }
 
         if (Input.GetButtonDown("Jump")) {
-            foreach (var character in AllCharacters) {
-                character.Move(Vector2Int.zero);
-            }
+            MovePair(Vector2.zero);
         }
 
         // Check mouse clicks and reassign one character of the pair
@@ -147,14 +147,30 @@ public class PairController : MonoBehaviour
     }
 
     void MovePair(Vector2 move) {
+        DeOverlapChars.Clear();
         foreach (var character in AllCharacters) {
             if (Object.ReferenceEquals(character, CharacterPair[0]) || Object.ReferenceEquals(character, CharacterPair[1])) {
                 character.MappedMove(move);
             }
             else {
                 character.Move(Vector2Int.zero);
+                DeOverlapChars.Add(character);
             }
         }
+        if (CharacterPair[1] != null) DeOverlapChars.Add(CharacterPair[1]);
+        if (CharacterPair[0] != null) DeOverlapChars.Add(CharacterPair[0]);
+
+        bool overlapped = true;
+        while (overlapped) {
+            overlapped = false;
+            foreach (var character in DeOverlapChars) {
+                if (character.IsOverlapping() && character.CanRollback()) {
+                    character.Rollback();
+                    overlapped = true;
+                }
+            }
+        }
+
         switch (map.CheckEndConditions()) {
             case Level.EndCondition.Win:
                 Debug.Log("WINNER!");

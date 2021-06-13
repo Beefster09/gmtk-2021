@@ -27,6 +27,11 @@ public class Switch : MonoBehaviour
         foreach (var door in FindObjectsOfType<Door>()) {
             if (door.GroupId == GroupId) AffectedDoors.Add(door);
         }
+        transform.position = new Vector3(
+            GridPosition.x + GridOffset.x,
+            GridPosition.y + GridOffset.y,
+            0f
+        );
     }
 
     // Update is called once per frame
