@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e7879a27505a8a429dcf40b6b321d67, type: 3}
   m_Name: ConveyorLeft
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 8233071653059976297, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
+  m_Sprite: {fileID: -6205172343615221245, guid: 937db8bd90fe3eb45ab803ca917859b9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
